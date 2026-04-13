@@ -1,0 +1,16 @@
+# Local development with bind mount (hot reload).
+# Preserves image `node_modules` and `.next` via anonymous volumes over the bind mount.
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev -- --hostname 0.0.0.0 --port 3000

@@ -1,0 +1,34 @@
+# Production: pulls/runs the ECR image by default. To build locally with the same tag and public env:
+#   docker compose build --no-cache
+# Build args are read from `.env` or the shell (NEXT_PUBLIC_* must be set at image build time).
+services:
+  sop:
+    image: 3645726359328.dkr.ecr.ap-south-1.amazonaws.com/sop:latest
+    container_name: sop
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-}
+        NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY: ${NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY:-}
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 50s

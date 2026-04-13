@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+:root {
+  --background: #eef1fb;
+  --foreground: #0d1635;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-manrope), sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@keyframes loading-spiral-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spiral {
+  position: relative;
+  width: 3.75rem;
+  height: 3.75rem;
+  animation: loading-spiral-spin 0.95s linear infinite;
+}
+
+.loading-spiral-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.34rem;
+  height: 0.34rem;
+  margin-left: -0.17rem;
+  margin-top: -0.17rem;
+  border-radius: 9999px;
+  background: #1d74e7;
+  box-shadow: 0 0 0 0.08rem rgba(29, 116, 231, 0.08);
+}
+
+.loading-spiral-dot-1 {
+  transform: translate(0rem, -1.55rem);
+  opacity: 0.2;
+}
+
+.loading-spiral-dot-2 {
+  transform: translate(0.78rem, -1.34rem);
+  opacity: 0.26;
+}
+
+.loading-spiral-dot-3 {
+  transform: translate(1.34rem, -0.78rem);
+  opacity: 0.34;
+}
+
+.loading-spiral-dot-4 {
+  transform: translate(1.55rem, 0rem);
+  opacity: 0.42;
+}
+
+.loading-spiral-dot-5 {
+  transform: translate(1.34rem, 0.78rem);
+  opacity: 0.5;
+}
+
+.loading-spiral-dot-6 {
+  transform: translate(0.78rem, 1.34rem);
+  opacity: 0.58;
+}
+
+.loading-spiral-dot-7 {
+  transform: translate(0rem, 1.55rem);
+  opacity: 0.68;
+}
+
+.loading-spiral-dot-8 {
+  transform: translate(-0.78rem, 1.34rem);
+  opacity: 0.78;
+}
+
+.loading-spiral-dot-9 {
+  transform: translate(-1.34rem, 0.78rem);
+  opacity: 0.88;
+}
+
+.loading-spiral-dot-10 {
+  transform: translate(-1.55rem, 0rem);
+  opacity: 0.96;
+}
+
+.loading-spiral-dot-11 {
+  transform: translate(-1.34rem, -0.78rem);
+  opacity: 0.72;
+}
+
+.loading-spiral-dot-12 {
+  transform: translate(-0.78rem, -1.34rem);
+  opacity: 0.46;
+}
