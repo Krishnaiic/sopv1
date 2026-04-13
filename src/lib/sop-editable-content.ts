@@ -1,6 +1,3 @@
-import mammoth from "mammoth";
-import { PDFParse } from "pdf-parse";
-import WordExtractor from "word-extractor";
 import sanitizeHtml from "sanitize-html";
 
 export type EditableSopContent = {
@@ -288,8 +285,7 @@ export async function convertSopFileToEditableContent(params: {
 }): Promise<EditableSopContent> {
   const lower = params.fileName.toLowerCase();
 
-  if (lower.endsWith(".docx")) {
-    const [htmlResult, rawResult] = await Promise.all([
+  if (lower.endsWith(".docx")) {`r`n    const mammoth = (await import("mammoth")).default;`r`n    const [htmlResult, rawResult] = await Promise.all([
       mammoth.convertToHtml(
         { buffer: params.buffer },
         { convertImage: mammoth.images.dataUri },
@@ -303,8 +299,7 @@ export async function convertSopFileToEditableContent(params: {
     return { editableHtml, extractedText, sourceFormat: "DOCX" };
   }
 
-  if (lower.endsWith(".doc")) {
-    const extractor = new WordExtractor();
+  if (lower.endsWith(".doc")) {`r`n    const { default: WordExtractor } = await import("word-extractor");`r`n    const extractor = new WordExtractor();
     const extracted = await extractor.extract(params.buffer);
     const text = normalizeText(extracted.getBody());
     return {
@@ -314,8 +309,7 @@ export async function convertSopFileToEditableContent(params: {
     };
   }
 
-  if (lower.endsWith(".pdf")) {
-    const parser = new PDFParse({ data: new Uint8Array(params.buffer) });
+  if (lower.endsWith(".pdf")) {`r`n    const { PDFParse } = await import("pdf-parse");`r`n    const parser = new PDFParse({ data: new Uint8Array(params.buffer) });
     try {
       const [result, screenshots] = await Promise.all([
         parser.getText({ parseHyperlinks: true }),
@@ -339,3 +333,4 @@ export async function convertSopFileToEditableContent(params: {
 
   throw new Error("Unsupported file format");
 }
+
