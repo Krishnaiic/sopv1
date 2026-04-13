@@ -3,13 +3,13 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 import { ok, fail } from "@/lib/apiResponse";
 import { canManageDepartmentScoped, requireActor, SOP_LIBRARY_UPLOAD_ROLES, type Actor } from "@/lib/authz";
-import { convertSopFileToEditableContent, sanitizeEditableHtml } from "@/lib/sop-editable-content";
+import { sanitizeEditableHtml } from "@/lib/sop-editable-content";
+import { convertSopFileToEditableContent } from "@/lib/sop-file-conversion";
 import { prisma } from "@/lib/prisma";
 import { SOP_LIBRARY_UPLOAD_SERIAL_PREFIX } from "@/lib/sop-library-upload";
 import { getS3SopEnv, uploadSopFileToS3 } from "@/lib/s3-sop-upload";
 import { DocumentStatus, DocumentType, Role } from "@/generated/prisma/enums";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-
 function isVideoUpload(fileName: string) {
   const lower = fileName.toLowerCase();
   return lower.endsWith(".mp4") || lower.endsWith(".webm") || lower.endsWith(".mov");
@@ -293,3 +293,5 @@ export async function POST(req: Request) {
 
   return NextResponse.json(ok({ id: document.id, serialNo: document.serialNo }), { status: 201 });
 }
+
+
