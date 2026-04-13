@@ -1,7 +1,7 @@
 import "dotenv/config";
-import { DocumentStatus, DocumentType, PrismaClient, Role } from "../src/generated/prisma/client";
+import { PrismaClient } from "../src/lib/prisma-client-shim";
+import { DocumentStatus, DocumentType, Role } from "../src/lib/prisma-enums";
 import bcrypt from "bcryptjs";
-
 const prisma = new PrismaClient();
 
 const companyBrandedSopTemplate = {
@@ -373,3 +373,5 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
+
+

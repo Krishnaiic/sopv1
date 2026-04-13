@@ -2,8 +2,7 @@
   "name": "sop",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
+  "scripts": {`r`n    "predev": "prisma generate",`r`n    "prebuild": "prisma generate",`r`n    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -45,3 +44,4 @@
     "typescript": "^5"
   }
 }
+

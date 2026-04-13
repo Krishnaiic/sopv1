@@ -1,14 +1,12 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-
 enum Role {
   SUPER_ADMIN
   ADMIN
@@ -347,3 +345,5 @@ model Notification {
   @@index([userId, isRead])
   @@index([createdAt])
 }
+
+
